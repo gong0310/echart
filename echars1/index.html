@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/echarts.js"></script>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="main2" style="width: 600px;height:400px;"></div>
+    <div id="main3" style="width: 600px;height:400px;"></div>
+    <div id="main4" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'), 'light');
+
+        // 指定图表的配置项和数据
+        var option = {
+            // 全局调色盘。
+            color: ['red', 'green', 'yellow', 'blue'],
+            title: {
+                text: 'ECharts柱形图'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量', '价格']
+            },
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+            },
+            yAxis: {},
+            series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                },
+                {
+                    name: '价格',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    <script>
+        // 绘制图表。
+        echarts.init(document.getElementById('main2'), 'light').setOption({
+            // backgroundColor: '#2c343c', //背景色是全局的
+            title: {
+                text: '饼图程序调用高亮示例',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                // orient: 'vertical',//竖着排
+                left: 'left',
+                data: ['A', 'B', 'C'],
+                // bottom: 10,
+
+            },
+            textStyle: {
+                color: 'rgba(255, 255, 255, 0.5)'
+            }, //文本的样式可以设置全局的
+            labelLine: {
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                }
+            }, //饼图的话还要将标签的视觉引导线的颜色设为浅色。
+            series: {
+                type: 'pie',
+                // roseType: 'angle',//通过设置 roseType 显示成南丁格尔图。
+                radius: '45%', //在画布所占区域
+                data: [{
+                        name: 'A',
+                        value: 1212,
+                        itemStyle: {
+                            color: '#c23531'
+                        }
+                    },
+                    {
+                        name: 'B',
+                        value: 2323
+                    },
+                    {
+                        name: 'C',
+                        value: 1919
+                    }
+                ]
+            }
+        });
+    </script>
+    <script>
+        let options = {
+            // 全局调色盘。
+            color: ['#e8e8e8', 'green', 'yellow', 'blue'],
+            title: {
+                text: 'Line Chart',
+                left: 'left'
+
+            },
+            calculable: true,
+            legend: {
+                // orient: 'vertical',
+                left: 'center',
+                data: ['充值', '消费']
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            toolbox: {
+
+            },
+            backgroundColor: '#FBFBFB',
+            xAxis: [{
+                axisLabel: {
+                    rotate: 30,
+                    interval: 0
+                }, //让X轴的时间这组数据旋转
+                type: 'category',
+                axisLine: {
+                    lineStyle: {
+                        color: 'red'
+                    },
+                    show: false, //是否显示坐标刻度线
+                },
+                type: 'category',
+                boundaryGap: false, //让折线图从X轴0刻度开始
+                data: function () {
+                    var list = [];
+                    for (var i = 10; i <= 18; i++) {
+                        if (i <= 12) {
+                            list.push('2016-' + i + '-01');
+                        } else {
+                            list.push('2017-' + (i - 12) + '-01');
+                        }
+                    }
+                    return list;
+                }()
+            }],
+            yAxis: [{
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#CECECE'
+                    },
+                    show: false, //是否显示坐标刻度线
+                }
+            },
+            {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#CECECE'
+                    },
+                    show: false, //是否显示坐标刻度线
+                }
+            }],
+            series: [{
+                    name: '充值',
+                    type: 'line',
+                    yAxisIndex:1,//在双y轴时，对应那一条y轴，默认0
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                color: 'black',
+                                backgroundColor: 'white'
+                            }
+
+                        }
+                    }, //鼠标放在折线上，显示该折点的数据
+                    symbol: 'none', //去掉小圆点
+                    smooth: 0.2, //折线图的弧度
+                    color: ['#66AEDE'],
+                    // symbol: 'circle', //标记的样式（小圆点）
+                    // symbolSize: 10, //标记的尺寸
+                    data: [800, 300, 500, 800, 300, 600, 500, 600]
+                },
+                {
+                    name: '消费',
+                    type: 'line',
+                    symbol: 'none',
+                    smooth: 0.2,
+                    color: ['#90EC7D'],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                color: 'black',
+                                backgroundColor: 'white'
+                            }
+
+                        }
+                    },
+                    data: [600, 300, 400, 200, 300, 300, 200, 400]
+                }
+
+            ]
+
+        }
+        echarts.init(document.getElementById('main3'), 'light').setOption(options);
+    </script>
+</body>
+
+</html>
